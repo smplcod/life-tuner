@@ -1,5 +1,4 @@
-// TimeInput.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function TimeInput({ onSetWorkTime }) {
   const [startTime, setStartTime] = useState("");
@@ -13,25 +12,24 @@ function TimeInput({ onSetWorkTime }) {
     setEndTime(event.target.value);
   };
 
-  const handleSubmit = () => {
-    const [startHours, startMinutes] = startTime.split(":").map(Number);
-    const [endHours, endMinutes] = endTime.split(":").map(Number);
+  // Эффект для пересчета времени при изменении startTime или endTime
+  useEffect(() => {
+    if (startTime && endTime) {
+      const [startHours, startMinutes] = startTime.split(":").map(Number);
+      const [endHours, endMinutes] = endTime.split(":").map(Number);
 
-    // Пересчитываем время, учитывая возможный переход через полночь
-    let workMinutes =
-      endHours * 60 + endMinutes - (startHours * 60 + startMinutes);
-    if (workMinutes < 0) {
-      // Если рабочее время заканчивается после полуночи
-      workMinutes =
-        24 * 60 -
-        (startHours * 60 + startMinutes) +
-        (endHours * 60 + endMinutes);
+      let workMinutes =
+        endHours * 60 + endMinutes - (startHours * 60 + startMinutes);
+      if (workMinutes < 0) {
+        workMinutes =
+          24 * 60 -
+          (startHours * 60 + startMinutes) +
+          (endHours * 60 + endMinutes);
+      }
+
+      onSetWorkTime(workMinutes / 60);
     }
-    onSetWorkTime(workMinutes / 60);
-    console.log(
-      `Начало рабочего дня: ${startTime}, конец рабочего дня: ${endTime}`
-    );
-  };
+  }, [startTime, endTime, onSetWorkTime]);
 
   return (
     <div
@@ -51,8 +49,6 @@ function TimeInput({ onSetWorkTime }) {
         Конец рабочего дня:
         <input type="time" value={endTime} onChange={handleEndTimeChange} />
       </label>
-      <br />
-      <button onClick={handleSubmit}>Сохранить</button>
     </div>
   );
 }
