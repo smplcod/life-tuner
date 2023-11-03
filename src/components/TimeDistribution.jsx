@@ -1,17 +1,32 @@
+// TimeDistribution.js
 import React from "react";
 
 function TimeDistribution({ tasks, workTime }) {
+  // Проверяем, превышает ли суммарное время задач рабочее время
   const totalTime = tasks.reduce((acc, task) => acc + task.duration, 0);
-  const scale = workTime / totalTime;
 
+  let remainingWorkTime = workTime;
   const distributedTasks = tasks.map((task) => {
-    const distributedTime = Math.min(task.duration * scale, workTime);
-    workTime -= distributedTime;
+    // Если суммарное время задач меньше или равно рабочему времени, распределяем время
+    const distributedTime =
+      totalTime <= workTime
+        ? task.duration
+        : remainingWorkTime > 0
+        ? Math.min(task.duration, remainingWorkTime)
+        : 0;
+    remainingWorkTime -= distributedTime;
     return { ...task, distributedTime };
   });
 
   return (
-    <div>
+    <div
+      style={{
+        border: "1px solid black",
+        padding: "10px",
+        backgroundColor: "#f0f0f0",
+        width: "300px",
+      }}
+    >
       <h2>Распределение времени</h2>
       <ul>
         {distributedTasks.map((task, index) => (
