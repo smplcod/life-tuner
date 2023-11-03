@@ -2,7 +2,10 @@ import React, { useState } from "react";
 
 function TaskInput({ onAddTask }) {
   const [taskName, setTaskName] = useState("");
-  const [taskTime, setTaskTime] = useState("01:00"); // Изменим начальное значение на 30 минут
+  // Используем localStorage для сохранения длительности задачи
+  const [taskTime, setTaskTime] = useState(
+    localStorage.getItem("lastTaskDuration") || "00:30"
+  );
 
   const handleTaskNameChange = (event) => {
     setTaskName(event.target.value);
@@ -10,6 +13,7 @@ function TaskInput({ onAddTask }) {
 
   const handleTaskTimeChange = (event) => {
     setTaskTime(event.target.value);
+    localStorage.setItem("lastTaskDuration", event.target.value);
   };
 
   const handleKeyPress = (event) => {
@@ -21,10 +25,10 @@ function TaskInput({ onAddTask }) {
   const handleSubmit = () => {
     if (taskName && taskTime) {
       const [hours, minutes] = taskTime.split(":").map(Number);
-      const duration = hours + minutes / 60; // Преобразуем вводимое время в часы с десятичной частью
+      const duration = hours + minutes / 60;
       onAddTask({ name: taskName, duration });
       setTaskName("");
-      setTaskTime("01:00"); // Сбрасываем время на 30 минут
+      // Не сбрасываем время на 30 минут, оставляем последнее введенное
     }
   };
 
@@ -39,7 +43,7 @@ function TaskInput({ onAddTask }) {
       />
       <input
         type="time"
-        step="60" // Минимальный шаг ввода — 1 минута
+        step="60"
         value={taskTime}
         onChange={handleTaskTimeChange}
       />

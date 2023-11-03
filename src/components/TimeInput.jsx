@@ -1,7 +1,17 @@
 import React, { useState, useEffect } from "react";
 
 function TimeInput({ onSetWorkTime }) {
-  const [startTime, setStartTime] = useState("");
+  // Функция для получения текущего времени в формате HH:mm
+  const getCurrentTime = () => {
+    const now = new Date();
+    return now.toLocaleTimeString("en-GB", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    });
+  };
+
+  const [startTime, setStartTime] = useState(getCurrentTime());
   const [endTime, setEndTime] = useState("");
 
   const handleStartTimeChange = (event) => {
@@ -21,6 +31,7 @@ function TimeInput({ onSetWorkTime }) {
       let workMinutes =
         endHours * 60 + endMinutes - (startHours * 60 + startMinutes);
       if (workMinutes < 0) {
+        // Переводим время в следующие сутки
         workMinutes =
           24 * 60 -
           (startHours * 60 + startMinutes) +
