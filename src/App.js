@@ -23,12 +23,16 @@ function App() {
     setTasks((prevTasks) => [...prevTasks, task]);
   };
 
+  const handleRemoveTask = (index) => {
+    setTasks((prevTasks) => prevTasks.filter((_, i) => i !== index));
+  };
+
   return (
     <>
       <TimeInput onSetWorkTime={setWorkTime} />
       <TaskInput onAddTask={handleAddTask} />
       <TimeDistribution tasks={tasks} workTime={workTime} />
-      <TaskList tasks={tasks} />
+      <TaskList tasks={tasks} onRemoveTask={handleRemoveTask} />
     </>
   );
 }

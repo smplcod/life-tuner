@@ -1,6 +1,6 @@
 import React from "react";
 
-function TaskList({ tasks }) {
+function TaskList({ tasks, onRemoveTask }) {
   // Функция для преобразования часов в формат "ч:мм"
   const formatDuration = (hours) => {
     const totalMinutes = Math.round(hours * 60);
@@ -15,6 +15,12 @@ function TaskList({ tasks }) {
       <ul>
         {tasks.map((task, index) => (
           <li key={index}>
+            <span
+              onClick={() => onRemoveTask(index)}
+              style={{ cursor: "pointer" }}
+            >
+              ❌
+            </span>
             {task.name}: {formatDuration(task.duration)}
           </li>
         ))}
