@@ -2,10 +2,7 @@ import React, { useState } from "react";
 
 function TaskInput({ onAddTask }) {
   const [taskName, setTaskName] = useState("");
-  // Используем localStorage для сохранения длительности задачи
-  const [taskTime, setTaskTime] = useState(
-    localStorage.getItem("lastTaskDuration") || "00:30"
-  );
+  const [taskTime, setTaskTime] = useState("01:00");
 
   const handleTaskNameChange = (event) => {
     setTaskName(event.target.value);
@@ -13,27 +10,29 @@ function TaskInput({ onAddTask }) {
 
   const handleTaskTimeChange = (event) => {
     setTaskTime(event.target.value);
-    localStorage.setItem("lastTaskDuration", event.target.value);
   };
 
   const handleKeyPress = (event) => {
-    if (event.key === "Enter") {
-      handleSubmit();
-    }
-  };
-
-  const handleSubmit = () => {
-    if (taskName && taskTime) {
+    if (event.key === "Enter" && taskName && taskTime) {
       const [hours, minutes] = taskTime.split(":").map(Number);
       const duration = hours + minutes / 60;
       onAddTask({ name: taskName, duration });
-      setTaskName("");
-      // Не сбрасываем время на 30 минут, оставляем последнее введенное
+
+      // Здесь устанавливаем значение времени по умолчанию для следующей задачи
+      setTaskTime(taskTime);
+      setTaskName(""); // Очищаем поле названия задачи
     }
   };
 
   return (
     <div>
+      <input
+        type="time"
+        step="60"
+        value={taskTime}
+        onChange={handleTaskTimeChange}
+        onKeyPress={handleKeyPress}
+      />
       <input
         type="text"
         placeholder="Название задачи..."
@@ -41,13 +40,6 @@ function TaskInput({ onAddTask }) {
         onChange={handleTaskNameChange}
         onKeyPress={handleKeyPress}
       />
-      <input
-        type="time"
-        step="60"
-        value={taskTime}
-        onChange={handleTaskTimeChange}
-      />
-      <button onClick={handleSubmit}>Добавить задачу</button>
     </div>
   );
 }
