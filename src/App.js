@@ -13,19 +13,11 @@ function App() {
     setTasks((prevTasks) => [...prevTasks, task]);
   };
 
-  const handleSetWorkTime = (workTime) => {
-    console.log(`Рабочее время: ${workTime}`);
-    // Здесь ты можешь делать что угодно с рабочим временем
-  };
-
   return (
     <>
       <TimeInput onSetWorkTime={setWorkTime} />
-      <hr></hr>
       <TaskInput onAddTask={handleAddTask} />
-      <hr></hr>
       <TimeDistribution tasks={tasks} workTime={workTime} />
-      <hr></hr>
       <TaskList tasks={tasks} />
     </>
   );
