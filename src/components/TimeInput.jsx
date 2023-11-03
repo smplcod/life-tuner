@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 function TimeInput({ onSetWorkTime }) {
-  // Функция для получения текущего времени в формате HH:mm
   const getCurrentTime = () => {
     const now = new Date();
     return now.toLocaleTimeString("en-GB", {
@@ -11,7 +10,6 @@ function TimeInput({ onSetWorkTime }) {
     });
   };
 
-  // Функция для получения времени окончания рабочего дня, добавив 8 часов к началу рабочего дня
   const getEndTimeByAddingHours = (startTime, hoursToAdd) => {
     const [startHours, startMinutes] = startTime.split(":").map(Number);
     const endDate = new Date();
@@ -23,11 +21,19 @@ function TimeInput({ onSetWorkTime }) {
     });
   };
 
+  const formatDuration = (minutes) => {
+    const hours = Math.floor(minutes / 60);
+    const mins = minutes % 60;
+    return `${hours < 10 ? `0${hours}` : hours}:${
+      mins < 10 ? `0${mins}` : mins
+    }`;
+  };
+
   const [startTime, setStartTime] = useState(getCurrentTime());
-  // Состояние endTime инициализируется один раз при монтировании компонента
   const [endTime, setEndTime] = useState(() =>
     getEndTimeByAddingHours(getCurrentTime(), 8)
   );
+  const [workDuration, setWorkDuration] = useState("");
 
   const handleStartTimeChange = (event) => {
     setStartTime(event.target.value);
@@ -37,24 +43,21 @@ function TimeInput({ onSetWorkTime }) {
     setEndTime(event.target.value);
   };
 
-  // Эффект для установки рабочего времени, запускается каждый раз при изменении startTime или endTime
   useEffect(() => {
-    if (startTime && endTime) {
-      const [startHours, startMinutes] = startTime.split(":").map(Number);
-      const [endHours, endMinutes] = endTime.split(":").map(Number);
+    const [startHours, startMinutes] = startTime.split(":").map(Number);
+    const [endHours, endMinutes] = endTime.split(":").map(Number);
 
-      let workMinutes =
-        endHours * 60 + endMinutes - (startHours * 60 + startMinutes);
-      if (workMinutes < 0) {
-        // Переводим время в следующие сутки
-        workMinutes =
-          24 * 60 -
-          (startHours * 60 + startMinutes) +
-          (endHours * 60 + endMinutes);
-      }
-
-      onSetWorkTime(workMinutes / 60);
+    let workMinutes =
+      endHours * 60 + endMinutes - (startHours * 60 + startMinutes);
+    if (workMinutes < 0) {
+      workMinutes =
+        24 * 60 -
+        (startHours * 60 + startMinutes) +
+        (endHours * 60 + endMinutes);
     }
+
+    setWorkDuration(formatDuration(workMinutes));
+    onSetWorkTime(workMinutes / 60);
   }, [startTime, endTime, onSetWorkTime]);
 
   return (
@@ -75,6 +78,7 @@ function TimeInput({ onSetWorkTime }) {
         Конец рабочего дня:
         <input type="time" value={endTime} onChange={handleEndTimeChange} />
       </label>
+      <p>Длительность рабочего дня: {workDuration}</p>
     </div>
   );
 }
