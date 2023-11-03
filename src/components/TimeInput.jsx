@@ -11,8 +11,23 @@ function TimeInput({ onSetWorkTime }) {
     });
   };
 
+  // Функция для получения времени окончания рабочего дня, добавив 8 часов к началу рабочего дня
+  const getEndTimeByAddingHours = (startTime, hoursToAdd) => {
+    const [startHours, startMinutes] = startTime.split(":").map(Number);
+    const endDate = new Date();
+    endDate.setHours(startHours + hoursToAdd, startMinutes, 0);
+    return endDate.toLocaleTimeString("en-GB", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    });
+  };
+
   const [startTime, setStartTime] = useState(getCurrentTime());
-  const [endTime, setEndTime] = useState("");
+  // Состояние endTime инициализируется один раз при монтировании компонента
+  const [endTime, setEndTime] = useState(() =>
+    getEndTimeByAddingHours(getCurrentTime(), 8)
+  );
 
   const handleStartTimeChange = (event) => {
     setStartTime(event.target.value);
@@ -22,7 +37,7 @@ function TimeInput({ onSetWorkTime }) {
     setEndTime(event.target.value);
   };
 
-  // Эффект для пересчета времени при изменении startTime или endTime
+  // Эффект для установки рабочего времени, запускается каждый раз при изменении startTime или endTime
   useEffect(() => {
     if (startTime && endTime) {
       const [startHours, startMinutes] = startTime.split(":").map(Number);
