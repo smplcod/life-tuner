@@ -16,3 +16,22 @@ function TaskList({ tasks }) {
 }
 
 export default TaskList;
+
+// Родительский компонент
+function Parent() {
+  const toParent = (data) => {
+    console.log(data);
+  };
+
+  return <Child toParent={toParent} />;
+}
+
+// Дочерний компонент
+function Child({ toParent }) {
+  const sendData = () => {
+    const data = "Данные от дочернего компонента";
+    toParent(data);
+  };
+
+  return <button onClick={sendData}>Send</button>;
+}
