@@ -20,21 +20,20 @@ const TimeDistribution = ({ tasks, workTime }) => {
     );
   }
 
-  // Функция для форматирования времени в часы и минуты с округлением минут
+  // Функция для форматирования времени в формате "ч:мм"
   const formatTime = (minutes) => {
     const hours = Math.floor(minutes / 60);
     const mins = Math.round(minutes % 60);
-    return `${hours} ч ${mins < 10 ? "0" : ""}${mins} мин`;
+    return `${hours}:${mins < 10 ? "0" : ""}${mins}`;
   };
 
-  // распределение времени с округлением до двух знаков после запятой
+  // распределение времени с округлением до ближайшей целой минуты
   const distributeTime = () => {
     return tasks.map((task) => {
       const taskTimeMinutes = convertToMinutes(task.duration);
-      const distributedTime =
-        Math.round(
-          totalWorkMinutes * (taskTimeMinutes / totalTasksDurationMinutes) * 100
-        ) / 100; // Округление до двух знаков после запятой
+      const distributedTime = Math.round(
+        totalWorkMinutes * (taskTimeMinutes / totalTasksDurationMinutes)
+      );
       return { ...task, distributedTime: formatTime(distributedTime) };
     });
   };
