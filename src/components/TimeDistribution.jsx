@@ -1,12 +1,8 @@
 import React from "react";
 
 const TimeDistribution = ({ tasks, workTime }) => {
-  // Удалим неиспользуемые переменные startTime и endTime, поскольку рабочее время приходит из props
-
   // функция для преобразования времени задачи в минуты
-  const convertToMinutes = (hours) => {
-    return hours * 60; // теперь у нас часы преобразуются в минуты напрямую
-  };
+  const convertToMinutes = (hours) => hours * 60;
 
   // общее доступное время для работы в минутах
   const totalWorkMinutes = convertToMinutes(workTime);
@@ -17,21 +13,26 @@ const TimeDistribution = ({ tasks, workTime }) => {
     0
   );
 
-  // проверка, превышает ли суммарная длительность задач доступное время
   if (totalTasksDurationMinutes > totalWorkMinutes) {
     console.error(
       "Суммарная длительность задач превышает доступное рабочее время!"
     );
-    // Здесь можно добавить какую-то логику обработки ошибки
   }
 
-  // распределение времени, если суммарная длительность задач меньше или равна доступному времени
+  // Функция для форматирования времени в часы и минуты
+  const formatTime = (minutes) => {
+    const hours = Math.floor(minutes / 60);
+    const mins = minutes % 60;
+    return `${hours} ч ${mins < 10 ? "0" : ""}${mins} мин`;
+  };
+
+  // распределение времени
   const distributeTime = () => {
     return tasks.map((task) => {
       const taskTimeMinutes = convertToMinutes(task.duration);
       const distributedTime =
         totalWorkMinutes * (taskTimeMinutes / totalTasksDurationMinutes);
-      return { ...task, distributedTime: distributedTime / 60 }; // переводим обратно в часы
+      return { ...task, distributedTime: formatTime(distributedTime) };
     });
   };
 
@@ -42,7 +43,7 @@ const TimeDistribution = ({ tasks, workTime }) => {
       <h2>Распределение времени</h2>
       {distributedTasks.map((task, index) => (
         <div key={index}>
-          {task.name}: {task.distributedTime.toFixed(2)} часа(ов)
+          {task.name}: {task.distributedTime}
         </div>
       ))}
     </div>
