@@ -1,12 +1,32 @@
-/* TaskList.module.css */
 .buttonSmall {
-  width: 12px;
+  width: 12px; /* Сделаем кнопку немного шире для удобства */
   height: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
-  /* border: none; Убрать стандартные рамки, если не нужны */
-  /* background: transparent; Или другой фон, если необходим */
+  border: 1px solid #ccc; /* Добавил границу для наглядности, можешь убрать */
+  background: transparent;
   cursor: pointer;
+}
+
+.taskItem {
+  display: flex;
+  align-items: center; /* Выравниваем элементы по центру по вертикали */
+  margin-bottom: 5px; /* Добавим немного маргина для отступа между задачами */
+}
+
+.taskName {
+  margin-right: 10px; /* Отступ для имени задачи от кнопки удаления */
+}
+
+.taskTimeControls {
+  display: flex;
+  align-items: center; /* Выравниваем кнопки и время по центру */
+}
+
+.taskTimeButtonGroup {
+  display: flex;
+  flex-direction: column;
+  margin: 0 5px; /* Отступы между группами кнопок */
 }

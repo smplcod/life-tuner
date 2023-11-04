@@ -61,22 +61,17 @@ function TaskList({ tasks, onRemoveTask, onUpdateTime }) {
       <h2>Список задач</h2>
       <ul>
         {tasks.map((task, index) => (
-          <li key={index}>
+          <li key={index} className={styles.taskItem}>
             <span
               onClick={() => onRemoveTask(index)}
-              style={{ cursor: "pointer", marginRight: "10px" }}
+              className={styles.taskName}
+              style={{ cursor: "pointer" }}
             >
               ❌
             </span>
             {task.name}:
-            <span style={{ display: "inline-flex", alignItems: "center" }}>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  marginRight: "5px",
-                }}
-              >
+            <span className={styles.taskTimeControls}>
+              <div className={styles.taskTimeButtonGroup}>
                 <button
                   onClick={() => incrementHours(index)}
                   className={styles.buttonSmall}
@@ -92,13 +87,7 @@ function TaskList({ tasks, onRemoveTask, onUpdateTime }) {
                 </button>
               </div>
               {formatDuration(task.duration)}
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  marginLeft: "5px",
-                }}
-              >
+              <div className={styles.taskTimeButtonGroup}>
                 <button
                   onClick={() => incrementMinutes(index)}
                   className={styles.buttonSmall}
