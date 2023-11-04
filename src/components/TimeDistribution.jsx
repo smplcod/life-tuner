@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-const TimeDistribution = ({ tasks, workTime }) => {
+const TimeDistribution = ({ tasks, workTime, IMPORTANT }) => {
   // функция для преобразования времени задачи в минуты
   const convertToMinutes = (hours) => hours * 60;
 
@@ -40,6 +40,11 @@ const TimeDistribution = ({ tasks, workTime }) => {
 
   const distributedTasks = distributeTime();
 
+  useEffect(() => {
+    // Здесь ты можешь выполнять действия при изменении значения IMPORTANT
+    console.log(`Время важного события: ${IMPORTANT}`);
+  }, [IMPORTANT]);
+
   return (
     <div>
       <h2>Распределение времени</h2>
@@ -48,6 +53,7 @@ const TimeDistribution = ({ tasks, workTime }) => {
           {task.name}: {task.distributedTime}
         </div>
       ))}
+      <div>Важное время: {IMPORTANT}</div>
     </div>
   );
 };

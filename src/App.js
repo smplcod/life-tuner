@@ -23,6 +23,7 @@ function App() {
 
   const [tasks, setTasks] = useState(initialTasks);
   const [workTime, setWorkTime] = useState(8);
+  const [IMPORTANT, setIMPORTANT] = useState("23:00");
 
   const handleAddTask = (task) => {
     setTasks((prevTasks) => [...prevTasks, task]);
@@ -42,9 +43,13 @@ function App() {
 
   return (
     <>
-      <TimeInput onSetWorkTime={setWorkTime} />
+      <TimeInput onSetWorkTime={setWorkTime} setIMPORTANT={setIMPORTANT} />
       <TaskInput onAddTask={handleAddTask} />
-      <TimeDistribution tasks={tasks} workTime={workTime} />
+      <TimeDistribution
+        tasks={tasks}
+        workTime={workTime}
+        IMPORTANT={IMPORTANT}
+      />
       <TaskList
         tasks={tasks}
         onRemoveTask={handleRemoveTask}
