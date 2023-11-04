@@ -9,7 +9,7 @@ function TaskList({ tasks, onRemoveTask, onUpdateTime }) {
     return `${h}:${m < 10 ? "0" : ""}${m}`;
   };
 
-  // Функция для увеличения длительности задачи
+  // Функция для увеличения длительности задачи на час
   const incrementHours = (index) => {
     onUpdateTime(index, {
       ...tasks[index],
@@ -17,12 +17,32 @@ function TaskList({ tasks, onRemoveTask, onUpdateTime }) {
     });
   };
 
-  // Функция для уменьшения длительности задачи
+  // Функция для уменьшения длительности задачи на час
   const decrementHours = (index) => {
     if (tasks[index].duration >= 1) {
       onUpdateTime(index, {
         ...tasks[index],
         duration: tasks[index].duration - 1,
+      });
+    }
+  };
+
+  // Функция для увеличения длительности задачи на 5 минут
+  const incrementMinutes = (index) => {
+    const newDuration = tasks[index].duration + 5 / 60;
+    onUpdateTime(index, {
+      ...tasks[index],
+      duration: newDuration,
+    });
+  };
+
+  // Функция для уменьшения длительности задачи на 5 минут
+  const decrementMinutes = (index) => {
+    if (tasks[index].duration * 60 >= 5) {
+      const newDuration = tasks[index].duration - 5 / 60;
+      onUpdateTime(index, {
+        ...tasks[index],
+        duration: newDuration,
       });
     }
   };
@@ -39,46 +59,50 @@ function TaskList({ tasks, onRemoveTask, onUpdateTime }) {
     <div>
       <h2>Список задач</h2>
       <ul>
-        {tasks.map((task, index) => {
-          // Извлекаем часы и минуты для отображения кнопок управления
-          const hours = Math.floor(task.duration);
-          const minutes = Math.round((task.duration - hours) * 60);
-
-          return (
-            <li key={index}>
-              <span
-                onClick={() => onRemoveTask(index)}
-                style={{ cursor: "pointer", marginRight: "10px" }}
+        {tasks.map((task, index) => (
+          <li key={index}>
+            <span
+              onClick={() => onRemoveTask(index)}
+              style={{ cursor: "pointer", marginRight: "10px" }}
+            >
+              ❌
+            </span>
+            {task.name}:
+            <span style={{ display: "inline-flex", alignItems: "center" }}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  marginRight: "5px",
+                }}
               >
-                ❌
-              </span>
-              {task.name}:
-              <span style={{ display: "inline-flex", alignItems: "center" }}>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    marginRight: "5px",
-                  }}
+                <button onClick={() => incrementHours(index)}>+</button>
+                <button
+                  onClick={() => decrementHours(index)}
+                  disabled={tasks[index].duration < 1}
                 >
-                  <button
-                    onClick={() => incrementHours(index)}
-                    style={{ marginBottom: "2px" }}
-                  >
-                    +
-                  </button>
-                  <button
-                    onClick={() => decrementHours(index)}
-                    disabled={hours < 1}
-                  >
-                    -
-                  </button>
-                </div>
-                {formatDuration(task.duration)}
-              </span>
-            </li>
-          );
-        })}
+                  -
+                </button>
+              </div>
+              {formatDuration(task.duration)}
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  marginLeft: "5px",
+                }}
+              >
+                <button onClick={() => incrementMinutes(index)}>+</button>
+                <button
+                  onClick={() => decrementMinutes(index)}
+                  disabled={tasks[index].duration * 60 < 5}
+                >
+                  -
+                </button>
+              </div>
+            </span>
+          </li>
+        ))}
       </ul>
       <div>Общее время задач: {totalDuration}</div>
     </div>
