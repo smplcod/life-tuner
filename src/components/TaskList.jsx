@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./TaskList.module.css";
 
 function TaskList({ tasks, onRemoveTask, onUpdateTime }) {
   // Функция для преобразования часов в формат "ч:мм"
@@ -76,10 +77,16 @@ function TaskList({ tasks, onRemoveTask, onUpdateTime }) {
                   marginRight: "5px",
                 }}
               >
-                <button onClick={() => incrementHours(index)}>+</button>
+                <button
+                  onClick={() => incrementHours(index)}
+                  className={styles.buttonSmall}
+                >
+                  +
+                </button>
                 <button
                   onClick={() => decrementHours(index)}
                   disabled={tasks[index].duration < 1}
+                  className={styles.buttonSmall}
                 >
                   -
                 </button>
@@ -92,10 +99,16 @@ function TaskList({ tasks, onRemoveTask, onUpdateTime }) {
                   marginLeft: "5px",
                 }}
               >
-                <button onClick={() => incrementMinutes(index)}>+</button>
+                <button
+                  onClick={() => incrementMinutes(index)}
+                  className={styles.buttonSmall}
+                >
+                  +
+                </button>
                 <button
                   onClick={() => decrementMinutes(index)}
                   disabled={tasks[index].duration * 60 < 5}
+                  className={styles.buttonSmall}
                 >
                   -
                 </button>

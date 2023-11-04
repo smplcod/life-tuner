@@ -1,0 +1,12 @@
+/* TaskList.module.css */
+.buttonSmall {
+  width: 12px;
+  height: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  /* border: none; Убрать стандартные рамки, если не нужны */
+  /* background: transparent; Или другой фон, если необходим */
+  cursor: pointer;
+}
