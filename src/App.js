@@ -32,12 +32,24 @@ function App() {
     setTasks((prevTasks) => prevTasks.filter((_, i) => i !== index));
   };
 
+  const handleUpdateTime = (index, updatedTask) => {
+    setTasks((prevTasks) => {
+      const newTasks = [...prevTasks];
+      newTasks[index] = updatedTask;
+      return newTasks;
+    });
+  };
+
   return (
     <>
       <TimeInput onSetWorkTime={setWorkTime} />
       <TaskInput onAddTask={handleAddTask} />
       <TimeDistribution tasks={tasks} workTime={workTime} />
-      <TaskList tasks={tasks} onRemoveTask={handleRemoveTask} />
+      <TaskList
+        tasks={tasks}
+        onRemoveTask={handleRemoveTask}
+        onUpdateTime={handleUpdateTime}
+      />
     </>
   );
 }

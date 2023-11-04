@@ -9,6 +9,14 @@ function TaskList({ tasks, onRemoveTask }) {
     return `${h}:${m < 10 ? "0" : ""}${m}`;
   };
 
+  // Функция для вычисления общего времени задач
+  const calculateTotalDuration = () => {
+    const totalDuration = tasks.reduce((sum, task) => sum + task.duration, 0);
+    return formatDuration(totalDuration);
+  };
+
+  const totalDuration = calculateTotalDuration();
+
   return (
     <div>
       <h2>Список задач</h2>
@@ -25,6 +33,7 @@ function TaskList({ tasks, onRemoveTask }) {
           </li>
         ))}
       </ul>
+      <div>Общее время задач: {totalDuration}</div>
     </div>
   );
 }
