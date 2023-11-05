@@ -4,6 +4,7 @@ import TaskInput from "./components/TaskInput";
 import TaskList from "./components/TaskList";
 import TimeDistribution from "./components/TimeDistribution";
 import TimeInput from "./components/TimeInput";
+import Settings from "./components/Settings";
 
 function App() {
   // Добавляем начальные тестовые задачи
@@ -23,7 +24,7 @@ function App() {
 
   const [tasks, setTasks] = useState(initialTasks);
   const [workTime, setWorkTime] = useState(8);
-  const [IMPORTANT, setIMPORTANT] = useState("23:00");
+  const [startTime, setStartTime] = useState("23:00");
 
   const handleAddTask = (task) => {
     setTasks((prevTasks) => [...prevTasks, task]);
@@ -43,12 +44,14 @@ function App() {
 
   return (
     <>
-      <TimeInput onSetWorkTime={setWorkTime} setIMPORTANT={setIMPORTANT} />
+      <TimeInput onSetWorkTime={setWorkTime} setStartTime2={setStartTime} />
+      <Settings />
       <TaskInput onAddTask={handleAddTask} />
+      ßß
       <TimeDistribution
         tasks={tasks}
         workTime={workTime}
-        IMPORTANT={IMPORTANT}
+        startTime={startTime}
       />
       <TaskList
         tasks={tasks}

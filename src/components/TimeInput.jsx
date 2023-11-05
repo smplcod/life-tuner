@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function TimeInput({ onSetWorkTime, setIMPORTANT }) {
+function TimeInput({ onSetWorkTime, setStartTime2 }) {
   const getCurrentTime = () => {
     const now = new Date();
     return now.toLocaleTimeString("en-GB", {
@@ -37,7 +37,7 @@ function TimeInput({ onSetWorkTime, setIMPORTANT }) {
 
   const handleStartTimeChange = (event) => {
     setStartTime(event.target.value);
-    setIMPORTANT(startTime);
+    setStartTime2(startTime);
   };
 
   const handleEndTimeChange = (event) => {
@@ -45,7 +45,7 @@ function TimeInput({ onSetWorkTime, setIMPORTANT }) {
   };
 
   useEffect(() => {
-    setIMPORTANT(startTime);
+    setStartTime2(startTime);
   }, [startTime]);
   useEffect(() => {
     const [startHours, startMinutes] = startTime.split(":").map(Number);
