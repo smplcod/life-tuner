@@ -70,7 +70,6 @@ const TimeDistribution = ({ tasks, workTime, startTime }) => {
           {task.name}: {task.distributedTime} ({task.timeInterval})
         </div>
       ))}
-      <div>Важное время: {startTime}</div>
     </div>
   );
 };

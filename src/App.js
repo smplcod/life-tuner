@@ -46,7 +46,6 @@ function App() {
     <>
       <TimeInput onSetWorkTime={setWorkTime} setStartTime2={setStartTime} />
       <TaskInput onAddTask={handleAddTask} />
-      ßß
       <TimeDistribution
         tasks={tasks}
         workTime={workTime}
