@@ -45,19 +45,23 @@ function App() {
 
   return (
     <>
-      <TimeInput onSetWorkTime={setWorkTime} setStartTime2={setStartTime} />
-      <TaskInput onAddTask={handleAddTask} />
+      <h1>Распределение времени</h1>
       <TimeDistribution
         tasks={tasks}
         workTime={workTime}
         startTime={startTime}
         isIntervalsEnabled={isIntervalsEnabled}
       />
+      <TimeInput onSetWorkTime={setWorkTime} setStartTime2={setStartTime} />
+      <TaskInput onAddTask={handleAddTask} />
+
+      <h2>Список задач</h2>
       <TaskList
         tasks={tasks}
         onRemoveTask={handleRemoveTask}
         onUpdateTime={handleUpdateTime}
       />
+      <h2>Настройки</h2>
       <Settings
         isIntervalsEnabled={isIntervalsEnabled}
         onToggleIntervals={() => setIsIntervalsEnabled(!isIntervalsEnabled)}

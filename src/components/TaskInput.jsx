@@ -25,7 +25,14 @@ function TaskInput({ onAddTask }) {
   };
 
   return (
-    <div>
+    <div
+      style={{
+        border: "1px solid black",
+        padding: "10px",
+        backgroundColor: "#f0f0f0",
+        width: "300px",
+      }}
+    >
       <input
         type="time"
         step="60"
@@ -39,6 +46,7 @@ function TaskInput({ onAddTask }) {
         value={taskName}
         onChange={handleTaskNameChange}
         onKeyPress={handleKeyPress}
+        style={{ padding: "3px" }}
       />
     </div>
   );

@@ -68,8 +68,11 @@ const TimeDistribution = ({
   }, [startTime]);
 
   return (
-    <div>
-      <h2>Распределение времени</h2>
+    <div
+      style={{
+        marginBottom: "10px",
+      }}
+    >
       {distributedTasks.map((task, index) => (
         <div key={index}>
           {task.name}: {task.distributedTime}{" "}
