@@ -1,12 +1,6 @@
 import React, { useState } from "react";
 
-function Settings() {
-  const [isIntervalsEnabled, setIsIntervalsEnabled] = useState(false);
-
-  const handleToggleIntervals = () => {
-    setIsIntervalsEnabled(!isIntervalsEnabled);
-  };
-
+function Settings({ isIntervalsEnabled, onToggleIntervals }) {
   return (
     <div
       style={{
@@ -20,7 +14,7 @@ function Settings() {
         <input
           type="checkbox"
           checked={isIntervalsEnabled}
-          onChange={handleToggleIntervals}
+          onChange={onToggleIntervals}
         />{" "}
         Интервалы
       </label>

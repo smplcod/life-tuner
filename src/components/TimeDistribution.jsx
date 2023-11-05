@@ -1,6 +1,11 @@
 import React, { useEffect } from "react";
 
-const TimeDistribution = ({ tasks, workTime, startTime }) => {
+const TimeDistribution = ({
+  tasks,
+  workTime,
+  startTime,
+  isIntervalsEnabled,
+}) => {
   // функция для преобразования времени задачи в минуты
   const convertToMinutes = (hours) => hours * 60;
 
@@ -67,7 +72,8 @@ const TimeDistribution = ({ tasks, workTime, startTime }) => {
       <h2>Распределение времени</h2>
       {distributedTasks.map((task, index) => (
         <div key={index}>
-          {task.name}: {task.distributedTime} ({task.timeInterval})
+          {task.name}: {task.distributedTime}{" "}
+          {isIntervalsEnabled && `(${task.timeInterval})`}
         </div>
       ))}
     </div>

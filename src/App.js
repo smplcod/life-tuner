@@ -24,7 +24,8 @@ function App() {
 
   const [tasks, setTasks] = useState(initialTasks);
   const [workTime, setWorkTime] = useState(8);
-  const [startTime, setStartTime] = useState("23:00");
+  const [startTime, setStartTime] = useState("18:00");
+  const [isIntervalsEnabled, setIsIntervalsEnabled] = useState(false);
 
   const handleAddTask = (task) => {
     setTasks((prevTasks) => [...prevTasks, task]);
@@ -50,13 +51,17 @@ function App() {
         tasks={tasks}
         workTime={workTime}
         startTime={startTime}
+        isIntervalsEnabled={isIntervalsEnabled}
       />
       <TaskList
         tasks={tasks}
         onRemoveTask={handleRemoveTask}
         onUpdateTime={handleUpdateTime}
       />
-      <Settings />
+      <Settings
+        isIntervalsEnabled={isIntervalsEnabled}
+        onToggleIntervals={() => setIsIntervalsEnabled(!isIntervalsEnabled)}
+      />
     </>
   );
 }
