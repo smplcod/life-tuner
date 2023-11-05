@@ -65,6 +65,11 @@ function TaskList({
   const getPomodorosForTask = (duration) => {
     return Math.floor(duration / (pomodoroDuration + breakDuration));
   };
+  // Функция для создания строки с эмодзи помидоров
+  const renderPomodoros = (duration) => {
+    const pomodoroCount = getPomodorosForTask(duration * 60);
+    return `${"🍅".repeat(pomodoroCount)} ${pomodoroCount}`;
+  };
 
   const totalDuration = calculateTotalDuration();
 
@@ -113,9 +118,7 @@ function TaskList({
                   -
                 </button>
               </div>
-              {isPomodoroEnabled
-                ? `🍅x${getPomodorosForTask(task.duration * 60)}`
-                : ""}
+              {isPomodoroEnabled ? renderPomodoros(task.duration) : ""}
             </span>
           </li>
         ))}
