@@ -5,6 +5,7 @@ import TaskList from "./components/TaskList";
 import TimeDistribution from "./components/TimeDistribution";
 import TimeInput from "./components/TimeInput";
 import Settings from "./components/Settings";
+import PomodoroSettings from "./components/PomodoroSettings";
 
 function App() {
   // Добавляем начальные тестовые задачи
@@ -26,6 +27,7 @@ function App() {
   const [workTime, setWorkTime] = useState(8);
   const [startTime, setStartTime] = useState("18:00");
   const [isIntervalsEnabled, setIsIntervalsEnabled] = useState(false);
+  const [isPomodoroEnabled, setIsPomodoroEnabled] = useState(false);
 
   const handleAddTask = (task) => {
     setTasks((prevTasks) => [...prevTasks, task]);
@@ -43,9 +45,21 @@ function App() {
     });
   };
 
+  // Состояния для настроек Pomodoro
+  const [pomodoroDuration, setPomodoroDuration] = useState(25);
+  const [breakDuration, setBreakDuration] = useState(5);
+
+  const handleTogglePomodoro = () => setIsPomodoroEnabled(!isPomodoroEnabled);
+
+  // Обработчики для настроек Pomodoro
+  const handlePomodoroChange = (event) =>
+    setPomodoroDuration(event.target.value);
+  const handleBreakChange = (event) => setBreakDuration(event.target.value);
+
   return (
     <>
       <h1>Распределение времени</h1>
+      <h3>Реалистичный план времени</h3>
       <TimeDistribution
         tasks={tasks}
         workTime={workTime}
@@ -56,6 +70,7 @@ function App() {
       <TaskInput onAddTask={handleAddTask} />
 
       <h2>Список задач</h2>
+      <h3>Желаемое время</h3>
       <TaskList
         tasks={tasks}
         onRemoveTask={handleRemoveTask}
@@ -65,7 +80,17 @@ function App() {
       <Settings
         isIntervalsEnabled={isIntervalsEnabled}
         onToggleIntervals={() => setIsIntervalsEnabled(!isIntervalsEnabled)}
+        isPomodoroEnabled={isPomodoroEnabled}
+        onTogglePomodoro={handleTogglePomodoro}
       />
+      {isPomodoroEnabled && (
+        <PomodoroSettings
+          pomodoroDuration={pomodoroDuration}
+          breakDuration={breakDuration}
+          onPomodoroChange={handlePomodoroChange}
+          onBreakChange={handleBreakChange}
+        />
+      )}
     </>
   );
 }
