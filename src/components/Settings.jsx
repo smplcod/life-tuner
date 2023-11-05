@@ -14,16 +14,15 @@ function Settings() {
         padding: "10px",
         backgroundColor: "#f0f0f0",
         width: "300px",
-        marginLeft: "10px", // Добавьте немного отступа слева
       }}
     >
       <label>
-        Интервалы:
         <input
           type="checkbox"
           checked={isIntervalsEnabled}
           onChange={handleToggleIntervals}
-        />
+        />{" "}
+        Интервалы
       </label>
     </div>
   );

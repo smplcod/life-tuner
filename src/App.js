@@ -45,7 +45,6 @@ function App() {
   return (
     <>
       <TimeInput onSetWorkTime={setWorkTime} setStartTime2={setStartTime} />
-      <Settings />
       <TaskInput onAddTask={handleAddTask} />
       ßß
       <TimeDistribution
@@ -58,6 +57,7 @@ function App() {
         onRemoveTask={handleRemoveTask}
         onUpdateTime={handleUpdateTime}
       />
+      <Settings />
     </>
   );
 }
