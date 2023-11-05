@@ -5,6 +5,7 @@ function Settings({
   onToggleIntervals,
   isPomodoroEnabled,
   onTogglePomodoro,
+  onStartWorkDay, // Функция, которая будет вызвана при нажатии на кнопку
 }) {
   return (
     <div
@@ -13,12 +14,10 @@ function Settings({
         padding: "10px",
         backgroundColor: "#f0f0f0",
         width: "300px",
-        marginBottom: "10px", // Добавлен отступ снизу для разделения настроек
+        marginBottom: "10px",
       }}
     >
       <div style={{ marginBottom: "5px" }}>
-        {" "}
-        {/* Добавлен контейнер для интервалов */}
         <label>
           <input
             type="checkbox"
@@ -28,9 +27,9 @@ function Settings({
           Интервалы
         </label>
       </div>
-      <div>
+      <div style={{ marginBottom: "5px" }}>
         {" "}
-        {/* Добавлен контейнер для помидоров */}
+        {/* Добавлен отступ снизу */}
         <label>
           <input
             type="checkbox"
@@ -39,6 +38,10 @@ function Settings({
           />{" "}
           Помидоры
         </label>
+      </div>
+      {/* Кнопка для начала рабочего дня */}
+      <div>
+        <button onClick={onStartWorkDay}>🚀Начать рабочий день</button>
       </div>
     </div>
   );

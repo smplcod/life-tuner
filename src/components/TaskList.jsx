@@ -1,7 +1,14 @@
 import React from "react";
 import styles from "./TaskList.module.css";
 
-function TaskList({ tasks, onRemoveTask, onUpdateTime }) {
+function TaskList({
+  tasks,
+  onRemoveTask,
+  onUpdateTime,
+  isPomodoroEnabled,
+  pomodoroDuration,
+  breakDuration,
+}) {
   // Функция для преобразования часов в формат "ч:мм"
   const formatDuration = (hours) => {
     const totalMinutes = Math.round(hours * 60);
@@ -54,6 +61,11 @@ function TaskList({ tasks, onRemoveTask, onUpdateTime }) {
     return formatDuration(totalDuration);
   };
 
+  // Функция для вычисления количества помидоров для задачи
+  const getPomodorosForTask = (duration) => {
+    return Math.floor(duration / (pomodoroDuration + breakDuration));
+  };
+
   const totalDuration = calculateTotalDuration();
 
   return (
@@ -101,11 +113,17 @@ function TaskList({ tasks, onRemoveTask, onUpdateTime }) {
                   -
                 </button>
               </div>
+              {isPomodoroEnabled
+                ? `🍅x${getPomodorosForTask(task.duration * 60)}`
+                : ""}
             </span>
           </li>
         ))}
       </ul>
       <div>Общее время задач: {totalDuration}</div>
+      <div>
+        Помидоры: {pomodoroDuration}/{breakDuration}
+      </div>
     </div>
   );
 }

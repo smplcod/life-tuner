@@ -75,6 +75,9 @@ function App() {
         tasks={tasks}
         onRemoveTask={handleRemoveTask}
         onUpdateTime={handleUpdateTime}
+        isPomodoroEnabled={isPomodoroEnabled}
+        pomodoroDuration={pomodoroDuration}
+        breakDuration={breakDuration}
       />
       <h2>Настройки</h2>
       <Settings
