@@ -79,7 +79,7 @@ function TaskList({
         <tr>
           <th>Задача</th>
           <th colSpan="3">Время</th>
-          <th>Помидоры</th>
+          {isPomodoroEnabled && <th>Помидоры</th>}
         </tr>
         {tasks.map((task, index) => (
           <tr key={index}>
@@ -93,15 +93,13 @@ function TaskList({
               {task.name}
             </td>
             <td>
-              <div>
+              <div className={styles.buttonGroup}>
                 <button
                   onClick={() => incrementHours(index)}
                   className={styles.buttonSmall}
                 >
                   +
                 </button>
-              </div>
-              <div>
                 <button
                   onClick={() => decrementHours(index)}
                   disabled={task.duration < 1}
@@ -113,15 +111,13 @@ function TaskList({
             </td>
             <td>{formatDuration(task.duration)}</td>
             <td>
-              <div>
+              <div className={styles.buttonGroup}>
                 <button
                   onClick={() => incrementMinutes(index)}
                   className={styles.buttonSmall}
                 >
                   +
                 </button>
-              </div>
-              <div>
                 <button
                   onClick={() => decrementMinutes(index)}
                   disabled={task.duration * 60 < 5}
@@ -131,7 +127,7 @@ function TaskList({
                 </button>
               </div>
             </td>
-            <td>{isPomodoroEnabled ? renderPomodoros(task.duration) : ""}</td>
+            {isPomodoroEnabled && <td>{renderPomodoros(task.duration)}</td>}
           </tr>
         ))}
       </tbody>
