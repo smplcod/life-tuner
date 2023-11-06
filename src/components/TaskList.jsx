@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./TaskList.module.css";
 
 function TaskList({
@@ -72,6 +72,10 @@ function TaskList({
   };
 
   const totalDuration = calculateTotalDuration();
+
+  useEffect(() => {
+    console.log(parseInt(pomodoroDuration) + parseInt(breakDuration));
+  }, [tasks, pomodoroDuration, breakDuration]);
 
   return (
     <table style={{ width: "100%", textAlign: "left" }}>
