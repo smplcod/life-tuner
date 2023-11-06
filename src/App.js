@@ -10,12 +10,13 @@ import PomodoroSettings from "./components/PomodoroSettings";
 function App() {
   // Добавляем начальные тестовые задачи
   const initialTasks = [
-    { name: "Задача1", duration: "0:30" },
-    { name: "Задача2", duration: "0:30" },
-    { name: "Задача3", duration: "1:00" },
-    { name: "Задача4", duration: "1:00" },
-    { name: "Задача5", duration: "2:00" },
-    { name: "Задача6", duration: "2:00" },
+    { name: "DaysGo", duration: "3:00" },
+    { name: "State Management learning", duration: "3:00" },
+    {
+      name: "ChromeExt FacebookCustom",
+      //Chrome extensions: search for facebook theme customization and develop feauture
+      duration: "1:00",
+    },
   ].map((task) => ({
     ...task,
     duration:

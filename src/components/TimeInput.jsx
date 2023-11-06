@@ -29,7 +29,9 @@ function TimeInput({ onSetWorkTime, setStartTime2 }) {
     }`;
   };
 
-  const [startTime, setStartTime] = useState(getCurrentTime());
+  const [startTime, setStartTime] = useState("6:00");
+  // const [startTime, setStartTime] = useState(getCurrentTime());
+
   const [endTime, setEndTime] = useState(() =>
     getEndTimeByAddingHours(getCurrentTime(), 8)
   );
