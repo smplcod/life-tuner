@@ -74,60 +74,68 @@ function TaskList({
   const totalDuration = calculateTotalDuration();
 
   return (
-    <div>
-      <ul>
+    <table style={{ width: "100%", textAlign: "left" }}>
+      <tbody>
+        <tr>
+          <th>Задача</th>
+          <th colSpan="3">Время</th>
+          <th>Помидоры</th>
+        </tr>
         {tasks.map((task, index) => (
-          <li key={index} className={styles.taskItem}>
-            <span
-              onClick={() => onRemoveTask(index)}
-              className={styles.taskName}
-              style={{ cursor: "pointer" }}
-            >
-              ❌
-            </span>
-            {task.name}:
-            <span className={styles.taskTimeControls}>
-              <div className={styles.taskTimeButtonGroup}>
+          <tr key={index}>
+            <td>
+              <span
+                onClick={() => onRemoveTask(index)}
+                style={{ cursor: "pointer" }}
+              >
+                ❌
+              </span>
+              {task.name}
+            </td>
+            <td>
+              <div>
                 <button
                   onClick={() => incrementHours(index)}
                   className={styles.buttonSmall}
                 >
                   +
                 </button>
+              </div>
+              <div>
                 <button
                   onClick={() => decrementHours(index)}
-                  disabled={tasks[index].duration < 1}
+                  disabled={task.duration < 1}
                   className={styles.buttonSmall}
                 >
                   -
                 </button>
               </div>
-              {formatDuration(task.duration)}
-              <div className={styles.taskTimeButtonGroup}>
+            </td>
+            <td>{formatDuration(task.duration)}</td>
+            <td>
+              <div>
                 <button
                   onClick={() => incrementMinutes(index)}
                   className={styles.buttonSmall}
                 >
                   +
                 </button>
+              </div>
+              <div>
                 <button
                   onClick={() => decrementMinutes(index)}
-                  disabled={tasks[index].duration * 60 < 5}
+                  disabled={task.duration * 60 < 5}
                   className={styles.buttonSmall}
                 >
                   -
                 </button>
               </div>
-              {isPomodoroEnabled ? renderPomodoros(task.duration) : ""}
-            </span>
-          </li>
+            </td>
+            <td>{isPomodoroEnabled ? renderPomodoros(task.duration) : ""}</td>
+          </tr>
         ))}
-      </ul>
-      <div>Общее время задач: {totalDuration}</div>
-      <div>
-        Помидоры: {pomodoroDuration}/{breakDuration}
-      </div>
-    </div>
+      </tbody>
+    </table>
   );
 }
 

@@ -10,23 +10,23 @@
   cursor: pointer;
 }
 
-.taskItem {
+/* .taskItem {
   display: flex;
-  align-items: center; /* Выравниваем элементы по центру по вертикали */
-  margin-bottom: 5px; /* Добавим немного маргина для отступа между задачами */
-}
+  align-items: center;  Выравниваем элементы по центру по вертикали 
+  margin-bottom: 5px;  Добавим немного маргина для отступа между задачами 
+} */
 
-.taskName {
-  margin-right: 10px; /* Отступ для имени задачи от кнопки удаления */
-}
+/* .taskName {
+  margin-right: 10px; Отступ для имени задачи от кнопки удаления
+} */
 
-.taskTimeControls {
+/* .taskTimeControls {
   display: flex;
-  align-items: center; /* Выравниваем кнопки и время по центру */
-}
+  align-items: center; Выравниваем кнопки и время по центру
+} */
 
-.taskTimeButtonGroup {
+/* .taskTimeButtonGroup {
   display: flex;
   flex-direction: column;
-  margin: 0 5px; /* Отступы между группами кнопок */
-}
+  margin: 0 5px; Отступы между группами кнопок
+} */
