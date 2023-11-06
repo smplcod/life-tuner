@@ -79,7 +79,7 @@ const TimeDistribution = ({
           <tr key={index}>
             <td>{task.name}</td>
             <td>{task.distributedTime}</td>
-            {isIntervalsEnabled && <td>{`(${task.timeInterval})`}</td>}
+            {isIntervalsEnabled && <td>{task.timeInterval}</td>}
           </tr>
         ))}
       </tbody>
