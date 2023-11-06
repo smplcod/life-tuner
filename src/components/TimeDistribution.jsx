@@ -73,13 +73,13 @@ const TimeDistribution = ({
         <tr>
           <th>Задача</th>
           <th>Время</th>
-          <th>Интервал</th>
+          {isIntervalsEnabled && <th>Интервал</th>}
         </tr>
         {distributedTasks.map((task, index) => (
           <tr key={index}>
             <td>{task.name}</td>
             <td>{task.distributedTime}</td>
-            <td>{isIntervalsEnabled ? `(${task.timeInterval})` : ""}</td>
+            {isIntervalsEnabled && <td>{`(${task.timeInterval})`}</td>}
           </tr>
         ))}
       </tbody>
