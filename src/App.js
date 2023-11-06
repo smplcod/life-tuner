@@ -17,6 +17,7 @@ function App() {
       //Chrome extensions: search for facebook theme customization and develop feauture
       duration: "1:00",
     },
+    { name: "BREAK", duration: "1:00" },
   ].map((task) => ({
     ...task,
     duration:
