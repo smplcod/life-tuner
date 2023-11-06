@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import styles from "./TaskList.module.css";
 
 function TaskList({
@@ -60,22 +60,38 @@ function TaskList({
     const totalDuration = tasks.reduce((sum, task) => sum + task.duration, 0);
     return formatDuration(totalDuration);
   };
+  // useEffect(() => {
+  //   console.log(parseInt(pomodoroDuration) + parseInt(breakDuration));
+  // }, [tasks, pomodoroDuration, breakDuration]);
 
-  // Функция для вычисления количества помидоров для задачи
-  const getPomodorosForTask = (duration) => {
-    return Math.floor(duration / (pomodoroDuration + breakDuration));
-  };
-  // Функция для создания строки с эмодзи помидоров
-  const renderPomodoros = (duration) => {
-    const pomodoroCount = getPomodorosForTask(duration * 60);
-    return `${"🍅".repeat(pomodoroCount)} ${pomodoroCount}`;
-  };
+  // // Функция для вычисления количества помидоров для задачи
+  // const getPomodorosForTask = (duration) => {
+  //   return Math.floor(duration / (pomodoroDuration + breakDuration));
+  // };
+  // // Функция для создания строки с эмодзи помидоров
+  // const renderPomodoros = (duration) => {
+  //   const pomodoroCount = getPomodorosForTask(duration * 60);
+  //   return `${"🍅".repeat(pomodoroCount)} ${pomodoroCount}`;
+  // };
+
+  const renderPomodoros = useCallback(
+    (duration) => {
+      // Вычисляем количество помидоров для задачи
+      const getPomodorosForTask = (duration) => {
+        return Math.floor(
+          duration /
+            (parseInt(pomodoroDuration, 10) + parseInt(breakDuration, 10))
+        );
+      };
+
+      // Получаем количество помидоров и создаем строку с эмодзи
+      const pomodoroCount = getPomodorosForTask(duration * 60);
+      return `${"🍅".repeat(pomodoroCount)} ${pomodoroCount}`;
+    },
+    [pomodoroDuration, breakDuration] // зависимости для useCallback
+  );
 
   const totalDuration = calculateTotalDuration();
-
-  useEffect(() => {
-    console.log(parseInt(pomodoroDuration) + parseInt(breakDuration));
-  }, [tasks, pomodoroDuration, breakDuration]);
 
   return (
     <table style={{ width: "100%", textAlign: "left" }}>
