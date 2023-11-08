@@ -68,22 +68,25 @@ const TimeDistribution = ({
   }, [startTime]);
 
   return (
-    <table style={{ width: "100%", textAlign: "left" }}>
-      <tbody>
-        <tr>
-          <th>Задача</th>
-          <th>Время</th>
-          {isIntervalsEnabled && <th>Интервал</th>}
-        </tr>
-        {distributedTasks.map((task, index) => (
-          <tr key={index}>
-            <td>{task.name}</td>
-            <td>{task.distributedTime}</td>
-            {isIntervalsEnabled && <td>{task.timeInterval}</td>}
+    <>
+      <table style={{ width: "100%", textAlign: "left" }}>
+        <tbody>
+          <tr>
+            <th>Задача</th>
+            <th>Время</th>
+            {isIntervalsEnabled && <th>Интервал</th>}
           </tr>
-        ))}
-      </tbody>
-    </table>
+          {distributedTasks.map((task, index) => (
+            <tr key={index}>
+              <td>{task.name}</td>
+              <td>{task.distributedTime}</td>
+              {isIntervalsEnabled && <td>{task.timeInterval}</td>}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <br />
+    </>
   );
 };
 
